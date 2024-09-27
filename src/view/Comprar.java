@@ -358,7 +358,7 @@ public class Comprar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
-        jPanel4.setBackground(new Color(55,54,86));
+        jPanel4.setBackground(new Color(85,84,116));
     }//GEN-LAST:event_jPanel4MouseExited
 
     private void jPanel4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseMoved
@@ -374,7 +374,7 @@ public class Comprar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
-        jPanel7.setBackground(new Color(55,54,86));
+        jPanel7.setBackground(new Color(85,84,116));
     }//GEN-LAST:event_jPanel7MouseExited
 
     private void jPanel8MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseMoved
@@ -386,7 +386,7 @@ public class Comprar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jPanel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseExited
-        jPanel8.setBackground(new Color(55,54,86));
+        jPanel8.setBackground(new Color(85,84,116));
     }//GEN-LAST:event_jPanel8MouseExited
 
     private void jPanel9MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseMoved
@@ -398,7 +398,7 @@ public class Comprar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void jPanel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseExited
-        jPanel9.setBackground(new Color(55,54,86));
+        jPanel9.setBackground(new Color(85,84,116));
     }//GEN-LAST:event_jPanel9MouseExited
 
     private void jPanel10MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseMoved
@@ -410,7 +410,7 @@ public class Comprar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel10MouseClicked
 
     private void jPanel10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseExited
-        jPanel10.setBackground(new Color(55,54,86));
+        jPanel10.setBackground(new Color(85,84,116));
     }//GEN-LAST:event_jPanel10MouseExited
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
