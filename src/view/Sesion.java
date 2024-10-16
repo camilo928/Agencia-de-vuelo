@@ -4,6 +4,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.UsuarioDAO;
+
 /**
  *
  * @author Camilo Jurado
@@ -33,9 +36,9 @@ public class Sesion extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        User = new javax.swing.JTextField();
-        Password = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        jTextField_passLogin = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jTextField_userLogin = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,26 +55,21 @@ public class Sesion extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 130, 10));
 
-        jLabel2.setText("Correo:");
+        jLabel2.setText("Usuario:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         jLabel3.setText("Contraseña:");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 23));
+        jPanel3.add(jTextField_passLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 130, -1));
 
-        User.setBorder(null);
-        User.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Ingresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        jPanel3.add(User, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 130, 20));
-
-        Password.setBorder(null);
-        jPanel3.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 130, 20));
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 0, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\billete-de-avion (1).png")); // NOI18N
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 130, 40));
+        jPanel3.add(jTextField_userLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 130, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -92,7 +90,7 @@ public class Sesion extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 250, 500));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\download (9).jpeg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/download (9).jpeg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,6 +110,25 @@ public class Sesion extends javax.swing.JFrame {
     private void UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UserActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String username = jTextField_userLogin.getText();
+        String password = jTextField_passLogin.getText();
+
+        UsuarioDAO userDao = new UsuarioDAO();
+
+        boolean isAuthenticated = userDao.authenticateUser(username, password);
+
+        if (isAuthenticated) {
+            
+            JOptionPane.showMessageDialog(this, "Login exitoso");
+            Comprar dashboard = new Comprar();
+            dashboard.setVisible(true);
+            this.dispose(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error de Login", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,9 +166,7 @@ public class Sesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField Password;
-    private javax.swing.JTextField User;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -160,5 +175,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField_passLogin;
+    private javax.swing.JTextField jTextField_userLogin;
     // End of variables declaration//GEN-END:variables
 }
