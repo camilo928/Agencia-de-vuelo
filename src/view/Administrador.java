@@ -1,8 +1,17 @@
 
 package view;
-
 import java.awt.Color;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.time.LocalDate;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import model.Piloto;
+import model.PilotoDAO;
+import model.Usuario;
+import model.UsuarioDAO;
 /**
  *
  * @author Camilo Jurado
@@ -15,8 +24,89 @@ public class Administrador extends javax.swing.JFrame {
     public Administrador() {
         initComponents();
         this.setLocationRelativeTo(null);
+        cargarPilotoEnTabla();
+        iniciarOpciones();
+        cargarUsuario();
     }
+    public void cargarPilotoEnTabla() {
+        PilotoDAO pilotoDAO = new PilotoDAO();
+        List<Piloto> listaPiloto = pilotoDAO.obtenerPiloto();
 
+        DefaultTableModel model = (DefaultTableModel) jTablepiloto.getModel();
+        model.setRowCount(0); 
+
+        for (Piloto piloto : listaPiloto) {
+            model.addRow(new Object[]{
+                piloto.getIdentificacion(),
+                piloto.getNombre(),
+                piloto.getApellido(),
+                piloto.getCorreo(),
+                piloto.getTelefono(),
+                piloto.getavion()
+            });
+        
+        }
+        
+}
+    
+    
+    public void iniciarOpciones(){
+        
+        JMenuItem eliminar = new JMenuItem("Despedir");
+        
+        
+        
+        ppMenuTabla.add(eliminar);
+        
+        jTablepiloto.setComponentPopupMenu(ppMenuTabla);
+        
+     
+      eliminar.addActionListener (new ActionListener(){
+    
+          @Override
+          
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = jTablepiloto.getSelectedRow();
+
+                if (selectedRow != -1) { 
+                    
+                    String identificacion = (String) jTablepiloto.getValueAt(selectedRow, 0);
+
+                    
+                    int confirm = JOptionPane.showConfirmDialog(null, "seguro de que deseas eliminar al piloto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                       
+                        PilotoDAO pilotoDAO = new PilotoDAO();
+                        pilotoDAO.EliminarPiloto(identificacion);
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un piloto para eliminar.");
+                }
+            }    
+    });
+      
+      
+      }
+    public void cargarUsuario() {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        List<Usuario> Usuario = usuarioDAO.obtenerUsuario();
+
+        DefaultTableModel model = (DefaultTableModel) jTableusuario1.getModel();
+        model.setRowCount(0); 
+
+        for (Usuario usuario : Usuario) {
+            model.addRow(new Object[]{
+                usuario.getIdentificacion(),
+                usuario.getNombre(),
+                usuario.getApellido(),
+                usuario.getCorreo(),
+                usuario.getTelefono(),
+                usuario.getUser(),
+                usuario.getContraseña()
+            });
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,6 +116,7 @@ public class Administrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppMenuTabla = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -42,14 +133,19 @@ public class Administrador extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablepiloto = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
@@ -75,6 +171,37 @@ public class Administrador extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox<>();
         jSeparator13 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel58 = new javax.swing.JLabel();
+        jProgressBar7 = new javax.swing.JProgressBar();
+        jPanel26 = new javax.swing.JPanel();
+        jSeparator20 = new javax.swing.JSeparator();
+        jLabel69 = new javax.swing.JLabel();
+        jProgressBar8 = new javax.swing.JProgressBar();
+        jLabel74 = new javax.swing.JLabel();
+        jSeparator23 = new javax.swing.JSeparator();
+        jLabel75 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        txtIdentificacion = new javax.swing.JTextField();
+        jSeparator24 = new javax.swing.JSeparator();
+        jLabel76 = new javax.swing.JLabel();
+        jSeparator25 = new javax.swing.JSeparator();
+        comboBoxavion = new javax.swing.JComboBox<>();
+        jLabel77 = new javax.swing.JLabel();
+        jSeparator26 = new javax.swing.JSeparator();
+        jSeparator19 = new javax.swing.JSeparator();
+        jLabel61 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel62 = new javax.swing.JLabel();
+        jSeparator16 = new javax.swing.JSeparator();
+        txtApellidos = new javax.swing.JTextField();
+        jSeparator15 = new javax.swing.JSeparator();
+        txtCorreo = new javax.swing.JTextField();
+        btnContratar = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableusuario1 = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,8 +230,6 @@ public class Administrador extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Inicio");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 50, 34));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\pagina-de-inicio.png")); // NOI18N
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 50));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
@@ -129,8 +254,6 @@ public class Administrador extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Inicio");
         jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 50, 34));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\pagina-de-inicio.png")); // NOI18N
         jPanel8.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 50));
 
         jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
@@ -154,14 +277,10 @@ public class Administrador extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Aviones");
-        jPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 93, 34));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\avion (3).png")); // NOI18N
+        jPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 93, 34));
         jPanel9.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         jPanel7.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
-
-        jLabel22.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\hombre-joven-con-corbata.png")); // NOI18N
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 60, 90));
 
         jPanel10.setBackground(new java.awt.Color(55, 54, 86));
@@ -182,13 +301,35 @@ public class Administrador extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Trabajadores");
+        jLabel15.setText("Pilotos");
         jPanel10.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 110, 34));
-
-        jLabel21.setIcon(new javax.swing.ImageIcon("C:\\Users\\Camilo Jurado\\OneDrive\\Desktop\\Resourse\\lanza-libre.png")); // NOI18N
         jPanel10.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, 40));
 
-        jPanel7.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, -1));
+        jPanel12.setBackground(new java.awt.Color(55, 54, 86));
+        jPanel12.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel12MouseMoved(evt);
+            }
+        });
+        jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel12MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel12MouseExited(evt);
+            }
+        });
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Pilotos");
+        jPanel12.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 110, 34));
+        jPanel12.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, 40));
+
+        jPanel10.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, -1));
+
+        jPanel7.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -197,6 +338,44 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
         jPanel7.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
+
+        jPanel15.setBackground(new java.awt.Color(55, 54, 86));
+        jPanel15.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel15MouseMoved(evt);
+            }
+        });
+        jPanel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel15MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel15MouseExited(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Usuario");
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel3)
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        jPanel7.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 40));
 
         jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 510));
 
@@ -217,22 +396,22 @@ public class Administrador extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablepiloto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"2341235432", "Miguel", "Felipe", "Miguel@gmail.com", " American Airlines"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Identificacion", "Nombre", "Apellido", "Correo", "Aerolinia"
+                "Identificacion", "Nombre", "Apellido", "Correo", "Telefono", "Aerolinia"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTablepiloto);
 
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 670, 290));
+        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 760, 290));
 
-        jTabbedPane1.addTab("tab1", jPanel6);
+        jTabbedPane4.addTab("tab1", jPanel6);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -337,9 +516,179 @@ public class Administrador extends javax.swing.JFrame {
         jButton2.setText("Agregar");
         jPanel11.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, -1, -1));
 
-        jTabbedPane1.addTab("tab2", jPanel11);
+        jTabbedPane4.addTab("tab2", jPanel11);
 
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 900, 480));
+        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel25.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 44, -1, 336));
+
+        jProgressBar7.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBar7.setForeground(new java.awt.Color(0, 204, 204));
+        jProgressBar7.setPreferredSize(new java.awt.Dimension(146, 10));
+        jProgressBar7.setString("");
+        jProgressBar7.setStringPainted(true);
+        jPanel25.add(jProgressBar7, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 220, 10));
+
+        jPanel26.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel26.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 44, 370, 10));
+        jPanel26.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 44, -1, 336));
+
+        jProgressBar8.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBar8.setForeground(new java.awt.Color(0, 204, 204));
+        jProgressBar8.setPreferredSize(new java.awt.Dimension(146, 10));
+        jProgressBar8.setString("");
+        jProgressBar8.setStringPainted(true);
+        jPanel26.add(jProgressBar8, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 220, 10));
+
+        jLabel74.setText("Correo:*");
+        jPanel26.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 230, 29));
+
+        jSeparator23.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator23.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator23, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 280, 10));
+
+        jLabel75.setText("Telefono:*");
+        jPanel26.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, 230, 29));
+
+        txtTelefono.setBackground(new java.awt.Color(0, 0, 0, 0));
+        txtTelefono.setBorder(null);
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
+        jPanel26.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 230, 280, 20));
+
+        txtIdentificacion.setBackground(new java.awt.Color(0, 0, 0, 0));
+        txtIdentificacion.setBorder(null);
+        txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdentificacionActionPerformed(evt);
+            }
+        });
+        txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyPressed(evt);
+            }
+        });
+        jPanel26.add(txtIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 300, 280, 20));
+
+        jSeparator24.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator24.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator24, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 280, 10));
+
+        jLabel76.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel76.setText("Telefono:*");
+        jPanel26.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 230, 29));
+
+        jSeparator25.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator25.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator25, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 280, 10));
+
+        comboBoxavion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brazil", "Argentina", "Estados Unidos", "Canada", "Mexico" }));
+        comboBoxavion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxavionActionPerformed(evt);
+            }
+        });
+        jPanel26.add(comboBoxavion, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 330, 110, 30));
+
+        jLabel77.setText("Identificacion:*");
+        jPanel26.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, 230, 29));
+
+        jSeparator26.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator26.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator26, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 280, 10));
+
+        jSeparator19.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator19.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, 280, 10));
+
+        jLabel61.setText("Nombre*:");
+        jPanel26.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 260, 29));
+
+        txtNombre.setBackground(new java.awt.Color(0, 0, 0, 0));
+        txtNombre.setBorder(null);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreKeyPressed(evt);
+            }
+        });
+        jPanel26.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 280, 20));
+
+        jLabel62.setText("Apellido:*");
+        jPanel26.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 230, 29));
+
+        jSeparator16.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator16.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 280, 20));
+
+        txtApellidos.setBackground(new java.awt.Color(0, 0, 0, 0));
+        txtApellidos.setBorder(null);
+        txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyPressed(evt);
+            }
+        });
+        jPanel26.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 280, 20));
+
+        jSeparator15.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator15.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel26.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 280, 10));
+
+        txtCorreo.setBackground(new java.awt.Color(0, 0, 0, 0));
+        txtCorreo.setBorder(null);
+        jPanel26.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 280, 20));
+
+        btnContratar.setText("Contratar");
+        btnContratar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContratarActionPerformed(evt);
+            }
+        });
+        jPanel26.add(btnContratar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 130, -1));
+
+        jPanel25.add(jPanel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 450));
+
+        jTabbedPane4.addTab("tab3", jPanel25);
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTableusuario1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Identificacion", "Nombre", "Apellido", "Email", "Telefono", "Usuario", "Contraseña"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTableusuario1);
+
+        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 760, 290));
+
+        jButton4.setText("Refresh");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jTabbedPane4.addTab("tab4", jPanel5);
+
+        jPanel1.add(jTabbedPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 900, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -356,7 +705,7 @@ public class Administrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseMoved
-        jPanel4.setBackground(new Color(235,106,2));
+                jPanel4.setBackground(new Color(235,106,2));
     }//GEN-LAST:event_jPanel4MouseMoved
 
     private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
@@ -396,11 +745,11 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField10ActionPerformed
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        jTabbedPane1.setSelectedIndex(0);
+        jTabbedPane4.setSelectedIndex(0);
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
-        jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane4.setSelectedIndex(1);
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -409,8 +758,96 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
-        
+        jTabbedPane4.setSelectedIndex(2);
     }//GEN-LAST:event_jPanel10MouseClicked
+
+    private void comboBoxavionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxavionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxavionActionPerformed
+
+    private void txtIdentificacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionKeyPressed
+
+    private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtApellidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidosKeyPressed
+
+    private void btnContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratarActionPerformed
+        String identificacion = txtIdentificacion.getText();
+        String nombre = txtNombre.getText();
+        String apellido = txtApellidos.getText();
+        String correo = txtCorreo.getText();
+        String telefono = txtTelefono.getText();
+
+        String avion = (String) comboBoxavion.getSelectedItem();
+
+        if (identificacion.isEmpty() ||  nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || telefono.isEmpty() ||  avion == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            PilotoDAO PilotoDAO = new PilotoDAO();
+
+            LocalDate fechaContrato = LocalDate.now();
+
+            PilotoDAO.contratarPiloto(identificacion, nombre, apellido, correo, telefono, avion, fechaContrato);
+
+            JOptionPane.showMessageDialog(this, "piloto contratado exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al contratar al piloto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnContratarActionPerformed
+
+    private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
+        if (evt.getKeyCode() == evt.getKeyCode()) {
+            txtNombre.requestFocus();
+        }
+    }//GEN-LAST:event_txtNombreKeyPressed
+
+    private void jPanel12MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel12MouseMoved
+
+    private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel12MouseClicked
+
+    private void jPanel12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel12MouseExited
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        cargarUsuario();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jPanel15MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseMoved
+    jPanel15.setBackground(new Color(235,106,2));
+// TODO add your handling code here:
+    }//GEN-LAST:event_jPanel15MouseMoved
+
+    private void jPanel15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseExited
+    jPanel15.setBackground(new Color(55,54,86));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel15MouseExited
+
+    private void jPanel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseClicked
+        jTabbedPane4.setSelectedIndex(3);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel15MouseClicked
 
     /**
      * @param args the command line arguments
@@ -446,16 +883,29 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
     }
+    private void limpiarCampos() {
+        txtIdentificacion.setText("");
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        txtCorreo.setText("");
+        txtTelefono.setText("");
+        comboBoxavion.setSelectedIndex(0);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContratar;
+    private javax.swing.JComboBox<String> comboBoxavion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -466,36 +916,72 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JProgressBar jProgressBar7;
+    private javax.swing.JProgressBar jProgressBar8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator16;
+    private javax.swing.JSeparator jSeparator19;
+    private javax.swing.JSeparator jSeparator20;
+    private javax.swing.JSeparator jSeparator23;
+    private javax.swing.JSeparator jSeparator24;
+    private javax.swing.JSeparator jSeparator25;
+    private javax.swing.JSeparator jSeparator26;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTable jTablepiloto;
+    private javax.swing.JTable jTableusuario1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JPopupMenu ppMenuTabla;
+    private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtIdentificacion;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+   
+
 }
